@@ -8,6 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author vikrantpratapsingh
+ * date 8/10/2024
+ * time 19:45
+ */
 public interface SeatReadRepository extends JpaRepository<SeatEntity,Long> {
     SeatEntity findTopByIsOccupiedFalse();
     Optional<SeatEntity> findBySeatNumberAndSectionAndIsOccupiedFalse(Integer seatNumber, String section);

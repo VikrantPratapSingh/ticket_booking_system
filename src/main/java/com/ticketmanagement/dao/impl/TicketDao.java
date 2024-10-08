@@ -3,7 +3,7 @@ package com.ticketmanagement.dao.impl;
 
 import com.ticketmanagement.dao.ITicketDao;
 import com.ticketmanagement.entities.TicketEntity;
-import com.ticketmanagement.exceptions.TicketInformationException;
+import com.ticketmanagement.exceptions.TicketRelatedException;
 import com.ticketmanagement.repositories.read.TicketReadRepository;
 import com.ticketmanagement.repositories.write.TicketWriteRepository;
 import org.springframework.stereotype.Service;
@@ -31,8 +31,8 @@ public class TicketDao implements ITicketDao {
         return ticketReadRepository.findByUserIdAndIsEnabledTrue(userId);
     }
 
-    public TicketEntity findByTicketId(UUID ticketId) throws TicketInformationException {
-        return ticketReadRepository.findByIdAndIsEnabledTrue(ticketId).orElseThrow(() -> new TicketInformationException(String.format("Not found {}",ticketId)));
+    public TicketEntity findByTicketId(UUID ticketId) throws TicketRelatedException {
+        return ticketReadRepository.findByIdAndIsEnabledTrue(ticketId).orElseThrow(() -> new TicketRelatedException(String.format("Not found {}",ticketId)));
     }
     public Optional<TicketEntity> disableTicket(UUID ticketId){
         return ticketReadRepository.findByIdAndIsEnabled(ticketId,false);

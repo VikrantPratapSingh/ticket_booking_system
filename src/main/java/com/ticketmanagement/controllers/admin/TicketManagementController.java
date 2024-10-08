@@ -1,8 +1,8 @@
 package com.ticketmanagement.controllers.admin;
 
-import com.ticketmanagement.exceptions.SeatInformationException;
-import com.ticketmanagement.exceptions.TicketInformationException;
-import com.ticketmanagement.exceptions.UserInformationException;
+import com.ticketmanagement.exceptions.SeatRelatedException;
+import com.ticketmanagement.exceptions.TicketRelatedException;
+import com.ticketmanagement.exceptions.UserRelatedException;
 import com.ticketmanagement.pojos.request.BookTicketRequest;
 import com.ticketmanagement.pojos.request.UpdateTicketRequest;
 import com.ticketmanagement.pojos.response.BaseResponse;
@@ -27,7 +27,7 @@ public class TicketManagementController {
 
     @PostMapping("/book-ticket")
     public ResponseEntity<BaseResponse> createTicket(@RequestBody BookTicketRequest request)
-            throws TicketInformationException, UserInformationException, SeatInformationException {
+            throws TicketRelatedException, UserRelatedException, SeatRelatedException {
         return ResponseEntity.ok(BaseResponse.builder().data(iTicketManagementService.bookTicket(request))
                 .status(HttpStatus.OK)
                 .build());
@@ -36,7 +36,7 @@ public class TicketManagementController {
 
     @PutMapping("/update-ticket")
     public ResponseEntity<BaseResponse> updateTicket(@RequestBody UpdateTicketRequest request)
-            throws TicketInformationException, SeatInformationException {
+            throws TicketRelatedException, SeatRelatedException {
         return ResponseEntity.ok(BaseResponse.builder()
                 .data(iTicketManagementService.updateTicket(request))
                 .status(HttpStatus.OK)
@@ -62,7 +62,7 @@ public class TicketManagementController {
 
     @GetMapping("/ticket/{userId}")
     public ResponseEntity<BaseResponse> getAllTicketsOfUser(@PathVariable(value = "userId") UUID userId)
-            throws TicketInformationException, UserInformationException {
+            throws TicketRelatedException, UserRelatedException {
         return ResponseEntity.ok(BaseResponse.builder()
                 .data(iTicketManagementService.getUsersTicketReceipt(userId))
                 .status(HttpStatus.OK)

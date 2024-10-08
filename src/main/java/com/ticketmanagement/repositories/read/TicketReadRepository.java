@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * @author vikrantpratapsingh
+ * date 8/10/2024
+ * time 19:45
+ */
 public interface TicketReadRepository extends JpaRepository<TicketEntity, UUID> {
     List<TicketEntity> findByUserIdAndIsEnabledTrue(UUID userId);
     Optional<TicketEntity> findByIdAndIsEnabled(UUID trackId, Boolean isEnabled);

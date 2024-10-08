@@ -3,9 +3,9 @@ package com.ticketmanagement.services.impl;
 import com.ticketmanagement.entities.SeatEntity;
 import com.ticketmanagement.entities.TicketEntity;
 import com.ticketmanagement.entities.UserEntity;
-import com.ticketmanagement.exceptions.SeatInformationException;
-import com.ticketmanagement.exceptions.TicketInformationException;
-import com.ticketmanagement.exceptions.UserInformationException;
+import com.ticketmanagement.exceptions.SeatRelatedException;
+import com.ticketmanagement.exceptions.TicketRelatedException;
+import com.ticketmanagement.exceptions.UserRelatedException;
 import com.ticketmanagement.pojos.context.SeatInfo;
 import com.ticketmanagement.pojos.context.UsersInfo;
 import com.ticketmanagement.pojos.request.BookTicketRequest;
@@ -30,6 +30,11 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * @author vikrantpratapsingh
+ * date 8/10/2024
+ * time 19:45
+ */
 @Slf4j
 @Service
 public class TicketManagementService implements ITicketManagementService {
@@ -44,11 +49,11 @@ public class TicketManagementService implements ITicketManagementService {
     }
 
     @Override
-    public BookTicketResponse bookTicket(BookTicketRequest request) throws TicketInformationException, SeatInformationException, UserInformationException {
+    public BookTicketResponse bookTicket(BookTicketRequest request) throws TicketRelatedException, SeatRelatedException, UserRelatedException {
         //check if seat is available
         SeatEntity seatEntity = seatDao.fetchAvailableSeats();
         if (seatEntity == null) {
-            throw new SeatInformationException();
+            throw new SeatRelatedException();
         }
         // check if user is already present or create new user
         UserEntity userEntity = createUserDetails(request);
@@ -70,7 +75,7 @@ public class TicketManagementService implements ITicketManagementService {
     }
 
     @Override
-    public UpdateTicketResponse updateTicket(UpdateTicketRequest request) throws TicketInformationException, SeatInformationException {
+    public UpdateTicketResponse updateTicket(UpdateTicketRequest request) throws TicketRelatedException, SeatRelatedException {
         // Fetch ticket details
         TicketEntity ticketEntity = ticketDao.findByTicketId(request.getTicketId());
 
@@ -93,8 +98,8 @@ public class TicketManagementService implements ITicketManagementService {
         newSeat.setIsOccupied(true);
         ticketEntity.setSeatId(newSeat.getSeatId());
         // Save changes to the seat and ticket
-        SeatEntity seatEntity=seatDao.save(newSeat);
-        TicketEntity ticket=ticketDao.save(ticketEntity);
+        SeatEntity seatEntity = seatDao.save(newSeat);
+        TicketEntity ticket = ticketDao.save(ticketEntity);
         return UpdateTicketResponse.builder()
                 .isEnabled(ticket.getIsEnabled())
                 .newSeatNumber(seatEntity.getSeatNumber())
@@ -105,30 +110,23 @@ public class TicketManagementService implements ITicketManagementService {
     }
 
     @Override
-    public UsersTicketReceiptResponse getUsersTicketReceipt(UUID userId) throws UserInformationException, TicketInformationException {
+    public UsersTicketReceiptResponse getUsersTicketReceipt(UUID userId) throws UserRelatedException, TicketRelatedException {
         UserEntity userEntity = userDao.findByUserId(userId);
         if (userEntity != null) {
             // fetch all tickets of user
             List<TicketEntity> tickets = ticketDao.findAllTicketsOfUser(userId);
             //for each ticket create a map of seat id and its entity
-            Map<Long, SeatEntity> seatIdMap = seatDao.findAllById(
-                            tickets.stream()
-                                    .map(TicketEntity::getSeatId)
-                                    .toList())
-                    .stream()
-                    .collect(Collectors.toMap(SeatEntity::getSeatId, Function.identity()));
-
-            List<TicketInfo> ticketInfo = tickets.stream()
-                    .map(ticket -> {
-                        SeatEntity seat = seatIdMap.get(ticket.getSeatId());
-                        return TicketInfo.builder()
-                                .ticketId(ticket.getId())
-                                .section(seat.getSection())
-                                .seatNumber(seat.getSeatNumber())
-                                .paidAmount(ticket.getPricePaid())
-                                .build();
-                    }).toList();
-
+            Map<Long, SeatEntity> seatIdMap = seatDao.findAllById(tickets.stream().map(TicketEntity::getSeatId)
+                    .toList()).stream().collect(Collectors.toMap(SeatEntity::getSeatId, Function.identity()));
+            List<TicketInfo> ticketInfo = tickets.stream().map(ticket -> {
+                SeatEntity seat = seatIdMap.get(ticket.getSeatId());
+                return TicketInfo.builder()
+                        .ticketId(ticket.getId())
+                        .section(seat.getSection())
+                        .seatNumber(seat.getSeatNumber())
+                        .paidAmount(ticket.getPricePaid())
+                        .build();
+            }).toList();
             return UsersTicketReceiptResponse.builder()
                     .userId(userId)
                     .ticketInfos(ticketInfo)
@@ -207,13 +205,13 @@ public class TicketManagementService implements ITicketManagementService {
 
     }
 
-    private UserEntity createUserDetails(BookTicketRequest request) throws TicketInformationException {
+    private UserEntity createUserDetails(BookTicketRequest request) throws TicketRelatedException {
         UserEntity userEntity;
         if (request.getUserId() != null) {
             userEntity = userDao.findByUserId(request.getUserId());
         } else {
             if (userDao.findByEmailId(request.getUserInfo().getEmailId()).isPresent()) {
-                throw new TicketInformationException(String.format("User with email %s already exist", request.getUserInfo().getEmailId()));
+                throw new TicketRelatedException(String.format("User with email %s already exist", request.getUserInfo().getEmailId()));
             }
             // if user is not present ,create a new user
             userEntity = createUserEntity(request);

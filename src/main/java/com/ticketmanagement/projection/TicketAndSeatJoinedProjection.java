@@ -2,24 +2,19 @@ package com.ticketmanagement.projection;
 
 import java.util.UUID;
 
+/**
+ * @author vikrantpratapsingh
+ * date 8/10/2024
+ * time 19:45
+ */
 public interface TicketAndSeatJoinedProjection {
-
-    // From UserEntity
     String getFirstName();
     String getLastName();
     String getEmail();
-
     Long getSeatId();
     String getSection();
-    Boolean getIsEnabled();
     Integer getSeatNumber();
     Boolean getIsTaken();
-
-    // From TicketEntity
     UUID getTicketId();
-    UUID getUserId(); // To correlate with UserEntity
-    String getFromLocation();
-    String getToLocation();
-    Integer getPricePaid();
-
+    UUID getUserId();
 }
