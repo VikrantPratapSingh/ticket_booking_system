@@ -1,0 +1,357 @@
+{
+  "info": {
+    "_postman_id": "b321f9dc-b460-4b44-ab95-b6b882f08f07",
+    "name": "ticket-mgmt",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "18302960",
+    "_collection_link": "https://lunar-escape-666465.postman.co/workspace/User-Service~ef8c3180-2bc0-44db-92cc-74c0cc2d17ea/collection/18302960-b321f9dc-b460-4b44-ab95-b6b882f08f07?action=share&source=collection_link&creator=18302960"
+  },
+  "item": [
+    {
+      "name": "Book Ticket If User Exists",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"userId\":\"5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1\",\n    \"from\":\"London\",\n    \"to\":\"France\",\n    \"ticketPrice\":\"20\",\n    \"userInfo\":{\n        \"userId\":\"5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1\",\n        \"firstName\":\"John\",\n        \"lastName\":\"Doe\",\n        \"emailId\":\"john.doe@example.com\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:8080/api/v1/book-ticket"
+      },
+      "response": [
+        {
+          "name": "Book ticket If User Exists",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\":\"5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1\",\n    \"from\":\"London\",\n    \"to\":\"France\",\n    \"ticketPrice\":\"20\",\n    \"userInfo\":{\n        \"userId\":\"5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1\",\n        \"firstName\":\"John\",\n        \"lastName\":\"Doe\",\n        \"emailId\":\"john.doe@example.com\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8080/api/v1/book-ticket"
+          },
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"userId\": \"5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1\",\n        \"from\": \"London\",\n        \"to\": \"France\",\n        \"pricePaid\": 20,\n        \"ticketId\": \"32ab4d34-3578-4a76-a871-909024b86bf7\",\n        \"section\": \"A\",\n        \"seatNumber\": 1\n    },\n    \"status\": \"OK\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Book Ticket for New User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"from\":\"Japan\",\n    \"to\":\"China\",\n    \"ticketPrice\":\"60\",\n    \"userInfo\":{\n        \"firstName\":\"John\",\n        \"lastName\":\"Doe\",\n        \"emailId\":\"john.doe1@example.com\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:8080/api/v1/book-ticket"
+      },
+      "response": [
+        {
+          "name": "Book ticket for New User",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"from\":\"Japan\",\n    \"to\":\"China\",\n    \"ticketPrice\":\"60\",\n    \"userInfo\":{\n        \"firstName\":\"John\",\n        \"lastName\":\"Doe\",\n        \"emailId\":\"john.doe1@example.com\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8080/api/v1/book-ticket"
+          },
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"userId\": \"b0b26d11-6ca1-4a09-b4ef-14c6758333e9\",\n        \"from\": \"Japan\",\n        \"to\": \"China\",\n        \"pricePaid\": 60,\n        \"ticketId\": \"2806dd02-39a6-4240-89bd-2073f0573d0c\",\n        \"section\": \"A\",\n        \"seatNumber\": 2\n    },\n    \"status\": \"OK\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Fetch Tickets of Section",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/fetch/:section",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "fetch",
+            ":section"
+          ],
+          "variable": [
+            {
+              "key": "section",
+              "value": "B"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Fetch Tickets of Section",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/fetch/:section",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "fetch",
+                ":section"
+              ],
+              "variable": [
+                {
+                  "key": "section",
+                  "value": "A"
+                }
+              ]
+            }
+          },
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"seats\": [\n            {\n                \"seatId\": 1,\n                \"section\": \"A\",\n                \"ticketId\": \"32ab4d34-3578-4a76-a871-909024b86bf7\",\n                \"seatNumber\": 1,\n                \"userInfo\": {\n                    \"userId\": \"5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1\",\n                    \"firstName\": \"John\",\n                    \"lastName\": \"Doe\",\n                    \"emailId\": \"john.doe@example.com\"\n                },\n                \"isOccupied\": true\n            },\n            {\n                \"seatId\": 2,\n                \"section\": \"A\",\n                \"ticketId\": \"2806dd02-39a6-4240-89bd-2073f0573d0c\",\n                \"seatNumber\": 2,\n                \"userInfo\": {\n                    \"userId\": \"b0b26d11-6ca1-4a09-b4ef-14c6758333e9\",\n                    \"firstName\": \"John\",\n                    \"lastName\": \"Doe\",\n                    \"emailId\": \"john.doe1@example.com\"\n                },\n                \"isOccupied\": true\n            },\n            {\n                \"seatId\": 3,\n                \"section\": \"A\",\n                \"seatNumber\": 3,\n                \"isOccupied\": false\n            }\n        ]\n    },\n    \"status\": \"OK\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Fetch Users Ticket Receipt",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/ticket/:userId",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "ticket",
+            ":userId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Fetch Ticket of User",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/ticket/:userId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "ticket",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1"
+                }
+              ]
+            }
+          },
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"userId\": \"5f47c687-d3f8-4a5e-9fc3-5a4ad8b6b7a1\",\n        \"ticketInfos\": [\n            {\n                \"ticketId\": \"32ab4d34-3578-4a76-a871-909024b86bf7\",\n                \"section\": \"A\",\n                \"seatNumber\": 1,\n                \"paidAmount\": 20\n            }\n        ]\n    },\n    \"status\": \"OK\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Ticket (Booked)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ticketId\":\"d02e8098-94a2-4e90-a2a4-161330b3456d\",\n    \"userId\":\"6756f1b1-c6c2-49d4-af43-8f1ac229d236\",\n    \"newSection\":\"B\",\n    \"newSeatNumber\":\"3\",\n    \"isEnabled\":\"true\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:8080/api/v1/update-ticket"
+      },
+      "response": [
+        {
+          "name": "Update Ticket",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ticketId\":\"d02e8098-94a2-4e90-a2a4-161330b3456d\",\n    \"userId\":\"6756f1b1-c6c2-49d4-af43-8f1ac229d236\",\n    \"newSection\":\"B\",\n    \"newSeatNumber\":\"3\",\n    \"isEnabled\":\"true\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8080/api/v1/update-ticket"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 08 Oct 2024 12:15:01 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"userId\": \"6756f1b1-c6c2-49d4-af43-8f1ac229d236\",\n        \"ticketId\": \"d02e8098-94a2-4e90-a2a4-161330b3456d\",\n        \"isEnabled\": true,\n        \"newSection\": \"B\",\n        \"newSeatNumber\": 3\n    },\n    \"status\": \"OK\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Kick User From Train",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/ticket/:userId",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "ticket",
+            ":userId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "6756f1b1-c6c2-49d4-af43-8f1ac229d236"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Kick User From Train",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/ticket/:userId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "ticket",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "6756f1b1-c6c2-49d4-af43-8f1ac229d236"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 08 Oct 2024 12:20:01 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": true,\n    \"status\": \"OK\"\n}"
+        }
+      ]
+    }
+  ]
+}
